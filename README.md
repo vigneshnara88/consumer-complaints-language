@@ -6,6 +6,29 @@ The central question is whether changes in complaint volume and reported outcome
 
 The project began as DS202W coursework and has continued as an independent analysis. Thanks to **Dr Ghita Berrada** for feedback on the research.
 
+## Motivation and research questions
+
+A complaint database records both financial problems and the process through which people describe those problems. Two consumers can face similar disputes but use very different language: one writes a personal account, while another adapts a shared template or uses formal legal phrasing. If the balance between those styles changes, a rise in complaints or a change in response rates can be difficult to interpret from headline counts alone.
+
+This project uses applied text analysis to investigate that measurement problem. Its main questions are:
+
+- **How is complaint language changing?** Track narrative length, vocabulary, legal phrasing, and shared wording over time, alongside changes in products and issues.
+- **How much do repeated templates shape the observed patterns?** Compare the full sample with deduplicated and non-templated subsets to see which patterns depend on shared text.
+- **Do language patterns differ across companies, issues, and financial products?** Use these comparisons to distinguish a broad shift in writing from a change concentrated in a particular part of the database.
+- **How are text features associated with recorded company responses?** Examine whether those associations persist after accounting for observed complaint characteristics and calendar categories.
+
+The motivation is to make administrative text more useful for understanding consumer experiences and informing further research. Automated writing tools and credit-repair templates are possible parts of the story, but the observable object here is the text itself. The project does not treat a writing style as a reliable identifier of who wrote a complaint or which tool they used.
+
+## From narratives to interpretable evidence
+
+The workflow starts with complaint records and their published narratives. It converts each narrative into a set of numerical features, groups exact matches after text normalization, and attaches the product, issue, company, date, and response category. This creates a feature store that can support both aggregate comparisons and statistical models without repeatedly processing the raw text.
+
+A **template flag** combines several signals rather than relying on one phrase. Repeated wording captures direct reuse; legal and template phrases describe style; a weighted score brings several text characteristics together. These signals are useful for examining composition, but they remain imperfect measurement choices. Comparing alternative flags and perturbing the score weights shows how much the conclusions would depend on those choices.
+
+The temporal analysis then asks whether the language distribution is moving, rather than merely counting more complaints. Jensen–Shannon divergence and Hellinger distance summarize how different a month's vocabulary or style distribution is from the chosen reference group. A larger distance means a larger distributional difference; it does not explain the cause of that difference. Comparisons of full and deduplicated data help reveal whether repeated text is contributing to the shift.
+
+Finally, logistic regression relates the measured features to response categories such as monetary or non-monetary relief. An odds ratio describes an association with the odds of a recorded response, conditional on the included controls. For example, an association between template use and relief could reflect differences in the underlying disputes, who submits them, or company processing, as well as wording. Establishing whether changing the wording itself changes a consumer's outcome would require a separate causal design.
+
 ## Implemented analysis
 
 | Component | Implementation |
