@@ -1,0 +1,7 @@
+matplotlib
+numpy
+pandas
+statsmodels
+scikit-learn
+# Required for pandas read_parquet/to_parquet cache operations.
+pyarrow
